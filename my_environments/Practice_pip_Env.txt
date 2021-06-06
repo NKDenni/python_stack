@@ -1,0 +1,85 @@
+1. Activate environment. After the environment was created a script can be accessed and run that will indicate that it is running in the terminal as shown below. The reason we use this is to isolate what packages / libraries we want to use for a particular project.
+
+ - nathan@Nathans-MacBook-Pro my_environments % py3Env/bin/activate
+ - (py3Env) nathan@Nathans-MacBook-Pro my_environments %
+
+2. Installing Django 1.11.9. If this command is run without ==1.11.9 it will install the latest version of the Django library. 
+
+ - pip install Django==1.11.9
+
+3. Running command pip list will list all plugins that are installed in the environment. This displays the name of the package and the version of the package.
+
+ - pip list
+ - Package    Version
+   ---------- -------
+   asgiref    3.3.4  
+   Django     1.11.9 
+   pip        19.2.3 
+   pytz       2021.1 
+   setuptools 41.2.0 
+   sqlparse   0.4.1
+
+4. Deactivate exits the environment and indicates this by removing the prefix in the terminal.
+
+ - (py3Env) nathan@Nathans-MacBook-Pro my_environments % deactivate
+ - nathan@Nathans-MacBook-Pro my_environments %
+
+5. Running the pip list or pip3 list command will list all of the packages installed globally on the machine. When packages are installed globally any projects created not in an environment will have access to the globally installed packages.
+
+ - pip3 list
+ - Package    Version
+   ---------- -------
+   asgiref    3.3.4
+   pip        21.1.2
+   pytz       2021.1
+   setuptools 56.0.0
+   sqlparse   0.4.1
+   wheel      0.36.2
+
+6. Reactivating the environment by pointing to the source again.
+
+ - nathan@Nathans-MacBook-Pro my_environments % source py3Env/bin/activate
+
+7. Running the install package again on an installed package returns a message stating the package and all associated required packages are already installed. 
+
+ - pip install Django==1.11.9
+ - Requirement already satisfied: Django==1.11.9 in ./py3Env/lib/python3.8/site-packages (1.11.9)
+   Requirement already satisfied: pytz in ./py3Env/lib/python3.8/site-packages (from Django==1.11.9) (2021.1)
+
+8. Pip freeze is similar to pip list in that it shows the names of packages and versions but only shows installed packages and not packages that are assets for python like pip or setuptools. 
+
+ - pip freeze
+ - asgiref==3.3.4
+   Django==1.11.9
+   pytz==2021.1
+   sqlparse==0.4.1
+
+9. Changing directories to desktop and then running the instructed command puts the output of pip freeze into the text file we called requirements.txt. 
+
+ - pip freeze > requirements.txt
+ - ls
+ - requirments.txt
+     - asgiref==3.3.4
+       Django==1.11.9
+       pytz==2021.1
+       sqlparse==0.4.1
+
+10. Uninstalling Django from the environment. 
+
+ - pip uninstall Django
+ - Uninstalling Django-1.11.9:
+   Would remove:
+    /Users/nathan/Documents/Coding_Dojo/python_stack/my_environments/py3Env/bin/django-admin
+    /Users/nathan/Documents/Coding_Dojo/python_stack/my_environments/py3Env/bin/django-admin.py
+    /Users/nathan/Documents/Coding_Dojo/python_stack/my_environments/py3Env/lib/python3.8/site-packages/Django-1.11.9.dist-info/*
+    /Users/nathan/Documents/Coding_Dojo/python_stack/my_environments/py3Env/lib/python3.8/site-packages/django/*
+   Proceed (y/n)? y
+   Successfully uninstalled Django-1.11.9
+
+11. Running pip show Django returns nothing as we have uninstalled Django already. If Django is still installed it prints to the terminal the name of the plugin, version, a summary, homepage url, author, author-email, License, location, requires, and required-by. 
+
+
+
+
+
+
