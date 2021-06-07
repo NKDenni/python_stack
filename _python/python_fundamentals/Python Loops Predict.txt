@@ -1,0 +1,110 @@
+# 1 This will print each number from 1 to 10 by incriments of 1.
+
+for i in range(1, 10, 1):
+    print(i)
+
+Output: 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+
+#2 This will print the value of t as it incriments from 1 to 10 in 3's.
+
+for t in range(1, 10, 3):
+    print(t)
+
+Output: 1, 4, 7
+
+
+#3 This will print values starting from 0 to 5 in increments of 1 as long as the condition y is less than 5 is true. The function stops at y=5 so it will not exicute the elif portion.
+
+for y in range(5):
+    if y < 5:
+        print(y)
+    elif y == 3:
+        print("y is 3")
+
+Output: 0, 1, 2, 3, 4
+
+
+#4 This will print numbers from 20 to 1 in decrements of 3.
+
+for j in range(20, 1, -3):
+    print(j)
+
+Output: 20, 17, 14, 11, 8, 5, 2
+
+
+#5 This will print each value "city" in the list without its index number.
+
+cities = ["London", "Paris", "Tokyo"]
+for city in cities:
+    print(city)
+
+Output: London, Paris, Tokyo
+
+
+#6 For the list below the for loop will first print the index number of the list and then print the value at that index. It will then check the value of the number at the current index to see if it equals 42. When we reach the last index containing the value 42 it will print the indicated string.
+
+numbers = [7, 13, 8, 42]
+for x in range(0, len(numbers)):
+    print(x)
+    print(numbers[x])
+if numbers[len(numbers) - 1] == 42:
+    print("The answer to life, the universe, and everything.")
+
+Output: 0, 7, 1, 13, 2, 8, 3, 42, The answer to life, the univers, and everything. 
+
+
+#7 For the range 0 to 10 if the value is divisable by 2 evenly Hello will get printed to the output. The elif statment never gets printed because anything divisable by 4 will be divisable by 2 and the first if statment will get exicuted first and move on to the next value. If the value is not divisiable evenly by 2 then we will print the current value.
+
+for num in range(10):
+    if num % 2 == 0:
+        print("Hello")
+    elif num % 4 == 0:
+        print("World")
+    else:
+        print(num)
+
+Output: Hello, 1, Hello, 3, Hello, 5, Hello, 7, Hello, 9
+
+
+#8 Like the previous for loop in #7, for each number in the range between 0 and 10 if the value in the range is divisiable by 4 the loop will print Hello. If it isn't divisiable by 4 but is divisiable by 2 it will print loop. If neither is divisiable by 4 or 2 it will print the current value.
+
+for num in range(10):
+    if num % 4 == 0:
+        print("Hello")
+    elif num % 2 == 0:
+        print("World")
+    else:
+        print(num)
+
+Output: Hello, 1, World, 3, Hello, 5, World, 7, Hello, 9
+
+#9 The for loop will print each key and each key value in the provided dictionary. 
+
+pet_info = {
+    "name": "Fido", 
+    "age": 4, 
+    "trick": "rolls over"
+}
+for key in pet_info:
+    print(key)
+    print(pet_info[key])
+
+Output: name, Fido, age, 4, trick, rolls over
+
+#10 For the given dictionary the for loop will store the key in num and iterate through each set of items. It will print the key then the string ", I will " and the string associated with that key in the dictionary. 
+
+things_to_remember = {
+    "First": "use the 20 minute rule and use the platform and other resources to find my answer",
+    "Second": "ask my classmates for help, like how I would ask a fellow employee at my job",
+    "Third": "ask an available TA in a public setting, so everyone can benefit from my question",
+    "Fourth": "ask an available instructor"
+}
+for num, step in things_to_remember.items():
+    print(num + ", I will " + step)
+
+Output: 
+    First, I will use the 20 minute rule and use the platform and other resources to find my answer
+    Second, I will ask my classmates for help, like how I would ask a fellow employee at my job
+    Third, I will ask an available TA in a public setting, so everyone can benefit from my question
+    Fourth, I will ask an available instructor
