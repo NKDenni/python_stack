@@ -21,7 +21,7 @@ sum = 0
 for i in range(500000):
     if i % 2!=0:
         sum = sum + i
-        print(sum)
+print(sum)
 
 # Countdown by Fours - Print positive numbers starting at 2018, counting down by fours.
 for i in range(2018,0,-4):
