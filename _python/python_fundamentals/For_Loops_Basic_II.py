@@ -154,5 +154,3 @@ def reverse_list(x):
 
 revers = reverse_list(list)
 print(revers)
-
-
