@@ -8,7 +8,7 @@ import random
 def randInt(min=0, max=100):
     num = random.random() * max
     if num < min:
-        return int(min)
+        return int(min + num)
     else:
         return int(num)
 
