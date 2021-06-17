@@ -8,7 +8,7 @@
     # yield_interest(self) - increases the account balance by the current balance * the interest rate(as long as the balance is positive)
 
 class BankAccount:
-    def __init__(self, anumber, int_rate=0, balance=0):
+    def __init__(self, anumber):
         self.anumber = anumber
         self.int_rate = 1.1
         self.balance = 0
