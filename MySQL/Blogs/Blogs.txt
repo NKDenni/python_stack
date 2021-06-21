@@ -1,0 +1,196 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema Blogs
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema Blogs
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `Blogs` DEFAULT CHARACTER SET utf8 ;
+USE `Blogs` ;
+
+-- -----------------------------------------------------
+-- Table `Blogs`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Blogs`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Blogs`.`blogs`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Blogs`.`blogs` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` TEXT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Blogs`.`admin`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Blogs`.`admin` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `blog_id` INT NOT NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_admin_users_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_admin_blogs1_idx` (`blog_id` ASC) VISIBLE,
+  CONSTRAINT `fk_admin_users`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `Blogs`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_admin_blogs1`
+    FOREIGN KEY (`blog_id`)
+    REFERENCES `Blogs`.`blogs` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Blogs`.`views`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Blogs`.`views` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `blog_id` INT NOT NULL,
+  `view_count` INT NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_views_users1_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_views_blogs1_idx` (`blog_id` ASC) VISIBLE,
+  CONSTRAINT `fk_views_users1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `Blogs`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_views_blogs1`
+    FOREIGN KEY (`blog_id`)
+    REFERENCES `Blogs`.`blogs` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Blogs`.`posts`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Blogs`.`posts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `blog_id` INT NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `content` TEXT NOT NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_posts_blogs1_idx` (`blog_id` ASC) VISIBLE,
+  CONSTRAINT `fk_posts_blogs1`
+    FOREIGN KEY (`blog_id`)
+    REFERENCES `Blogs`.`blogs` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Blogs`.`media_files`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Blogs`.`media_files` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `post_id` INT NOT NULL,
+  `blog_id` INT NOT NULL,
+  `media` BLOB NULL,
+  `source_url` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_images_posts1_idx` (`post_id` ASC) VISIBLE,
+  INDEX `fk_images_blogs1_idx` (`blog_id` ASC) VISIBLE,
+  CONSTRAINT `fk_images_posts1`
+    FOREIGN KEY (`post_id`)
+    REFERENCES `Blogs`.`posts` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_images_blogs1`
+    FOREIGN KEY (`blog_id`)
+    REFERENCES `Blogs`.`blogs` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Blogs`.`comments`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Blogs`.`comments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `post_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `content` TEXT NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_comments_posts1_idx` (`post_id` ASC) VISIBLE,
+  INDEX `fk_comments_users1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_comments_posts1`
+    FOREIGN KEY (`post_id`)
+    REFERENCES `Blogs`.`posts` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comments_users1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `Blogs`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `Blogs`.`moderator`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Blogs`.`moderator` (
+  `id` VARCHAR(45) NOT NULL,
+  `admin_id` INT NOT NULL,
+  `post_id` INT NOT NULL,
+  `created_at` DATETIME NULL,
+  `updated_at` DATETIME NULL,
+  INDEX `fk_admin_has_posts_posts1_idx` (`post_id` ASC) VISIBLE,
+  INDEX `fk_admin_has_posts_admin1_idx` (`admin_id` ASC) VISIBLE,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_admin_has_posts_admin1`
+    FOREIGN KEY (`admin_id`)
+    REFERENCES `Blogs`.`admin` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_admin_has_posts_posts1`
+    FOREIGN KEY (`post_id`)
+    REFERENCES `Blogs`.`posts` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
