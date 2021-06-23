@@ -5,9 +5,8 @@ function display_c() {
 
 function display_ct() {
     var x = new Date()
-    var x1 = '年' + x.getFullYear() + " " + '月' + x.getMonth() + 1 + " " + '日' + x.getDate();
-    x1 = x1 + " - " + x.getHours() + ":" + x.getMinutes() + ":" + x.getSeconds();
-    hours = hours.toString().length == 1 ? 0 + hours.toString() : hours;
+    var hours = x.getHours().toString()
+    hours = hours.length == 1 ? 0 + hours : hours;
 
     var minutes = x.getMinutes().toString()
     minutes = minutes.length == 1 ? 0 + minutes : minutes;
@@ -20,7 +19,9 @@ function display_ct() {
 
     var dt = x.getDate().toString();
     dt = dt.length == 1 ? 0 + dt : dt;
+
+    var x1 = x.getFullYear() + "年" + " " + month + "月" + " " + dt + "日";
+    x1 = x1 + " - " + hours + ":" + minutes + ":" + seconds;
     document.getElementById('ct').innerHTML = x1;
     display_c();
 }
-

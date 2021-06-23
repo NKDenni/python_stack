@@ -24,14 +24,31 @@ h1{
     font-size: 30px;
     padding: 15px;
     margin: 10px auto;
+    font-family: Arial, Helvetica, sans-serif;
 
 }
 
 .time {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    width: 500px;
+}
+
+p {
+    display: flex;
     justify-content: center;
     font-size: 30px;
     padding: 10px;
-    margin: 0 auto;
+    border: solid black 1px
+}
+
+#ct {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    padding: 10px;
+    margin:0 auto;
     border: solid black 1px
 }
