@@ -7,10 +7,15 @@
     <title>Time Display</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 </head>
 <body>
-    <h1>Here to show you the current local time</h1>
-    <p>{{time}}</p>
-</ul>
+    <dev class="wrapper">
+        <h1>Here to show you the current UTC time</h1>
+        <dev class="time">
+            <p>{{time}}</p>
+        </dev>
+    </dev>
 </body>
+
 </html>
