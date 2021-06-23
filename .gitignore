@@ -3,3 +3,4 @@ my_environments
 .
 ..
 .DS_Store
+secret.py
