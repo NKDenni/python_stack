@@ -1,0 +1,117 @@
+(djangoPy3Env) nathan@Nathans-MacBook-Pro dojo_ninja % python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  No migrations to apply.
+  Your models have changes that are not yet reflected in a migration, and so won't be applied.
+  Run 'manage.py makemigrations' to make new migrations, and then re-run 'manage.py migrate' to apply them.
+(djangoPy3Env) nathan@Nathans-MacBook-Pro dojo_ninja % python manage.py makemigrations
+Migrations for 'shinobi':
+  shinobi/migrations/0001_initial.py
+    - Create model Dojo
+    - Create model Ninja
+(djangoPy3Env) nathan@Nathans-MacBook-Pro dojo_ninja % python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, shinobi
+Running migrations:
+  Applying shinobi.0001_initial... OK
+(djangoPy3Env) nathan@Nathans-MacBook-Pro dojo_ninja % python manage.py shell
+lsPython 3.9.5 (default, May  4 2021, 03:36:27) 
+[Clang 12.0.0 (clang-1200.0.32.29)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from shinobi.models import Dojo, Ninja
+>>> Dojo.objects.all()
+<QuerySet []>
+>>> Ninja.objects.all()
+<QuerySet []>
+>>> Dojo.objects.create(dojo_name = "Water", city = "Seattle", state = "WA")
+<Dojo: Dojo object (1)>
+>>> Dojo.objects.create(dojo_name = "Fire", city = "San Jose", state = "CA")
+<Dojo: Dojo object (2)>
+>>> Dojo.objects.create(dojo_name = "Wood", city = "Portland", state = "OR")
+<Dojo: Dojo object (3)>
+>>> c = Dojo.objects.get(id=1)
+>>> c.delete()
+(1, {'shinobi.Ninja': 0, 'shinobi.Dojo': 1})
+>>> c = Dojo.objects.get(id=2)
+>>> c.delete()
+(1, {'shinobi.Ninja': 0, 'shinobi.Dojo': 1})
+>>> c = Dojo.objects.get(id=3)
+>>> c.delete()
+(1, {'shinobi.Ninja': 0, 'shinobi.Dojo': 1})
+>>> Dojo.objects.all()
+<QuerySet []>
+>>> Dojo.objects.create(dojo_name = "Wood", city = "Seattle", state = "WA")
+<Dojo: Dojo object (4)>
+>>> Dojo.objects.create(dojo_name = "Fire", city = "San Jose", state = "CA")
+<Dojo: Dojo object (5)>
+>>> Dojo.objects.create(dojo_name = "Earth", city = "Dallas", state = "TX")
+<Dojo: Dojo object (6)>
+>>> Wood = Dojo.objects.get(id=4)
+>>> Fire = Dojo.objects.get(id=5)
+>>> Earth = Dojo.objects.get(id=6)
+>>> Ninja.objects.create(first_name = "Hiro", last_name = "Takeda", dojo = Wood, email = "Hiro@gmail.com")
+<Ninja: Ninja object (1)>
+>>> Ninja.objects.create(first_name = "Kayo", last_name = "Takeda", dojo = Wood, email = "Kayo@gmail.com")
+<Ninja: Ninja object (2)>
+>>> Ninja.objects.create(first_name = "Yoko", last_name = "Takeda", dojo = Wood, email = "Yoeko@gmail.com")
+<Ninja: Ninja object (3)>
+>>> Ninja.objects.create(first_name = "Kazu", last_name = "Fujii", dojo = Earth, email = "Kazu@gmail.com")
+<Ninja: Ninja object (4)>
+>>> Hiro = Ninja.objects.get(id=1)
+>>> Hiro.dojo
+<Dojo: Dojo object (4)>
+>>> Hiro.dojo.dojo_name
+'Wood'
+>>> Kazu = Ninja.objects.get(id=4)
+>>> Kazu.dojo
+<Dojo: Dojo object (6)>
+>>> Kazu.dojo.dojo_name
+'Earth'
+>>> Shin = Ninja.objects.create(first_name = "Shin", last_name = "Ryu", dojo = Earth, email = "Shin@gmail.com")
+>>> Jeung = Ninja.objects.create(first_name = "Jeun", last_name = "Ryu", dojo = Earth, email = "Jeung@gmail.com")
+>>> Jeun.dojo
+<Dojo: Dojo object (6)>
+>>> Jeun.dojo.dojo_name
+'Earth'
+>>> Tadami = Ninja.objects.create(first_name = "Tadami", last_name = "kikuchi", dojo = Fire, email = "tdk@gmail.com")
+>>> Tadami.id
+7
+>>> Greg = Ninja.objects.create(first_name = "Greg", last_name = "Li", dojo = Fire, email = "gl@gmail.com")
+>>> Shin = Ninja.objects.create(first_name = "Shinghi", last_name = "Take", email = "st@gmail.com", dojo = Fire)
+>>> Wood.students.all()
+<QuerySet [<Ninja: Ninja object (1)>, <Ninja: Ninja object (2)>, <Ninja: Ninja object (3)>]>
+>>> Earth.students.all()
+<QuerySet [<Ninja: Ninja object (4)>, <Ninja: Ninja object (5)>, <Ninja: Ninja object (6)>]>
+>>> Shin.dojo.dojo_name
+'Fire'
+>>> exit()
+(djangoPy3Env) nathan@Nathans-MacBook-Pro dojo_ninja % python manage.py makemigrations
+You are trying to add a non-nullable field 'desc' to dojo without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 1
+Please enter the default value now, as valid Python
+The datetime and django.utils.timezone modules are available, so you can do e.g. timezone.now
+Type 'exit' to exit this prompt
+>>> "old dojo"
+Migrations for 'shinobi':
+  shinobi/migrations/0003_dojo_desc.py
+    - Add field desc to dojo
+(djangoPy3Env) nathan@Nathans-MacBook-Pro dojo_ninja % python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, shinobi
+Running migrations:
+  Applying shinobi.0003_dojo_desc... OK
+(djangoPy3Env) nathan@Nathans-MacBook-Pro dojo_ninja % python manage.py shell
+Python 3.9.5 (default, May  4 2021, 03:36:27) 
+[Clang 12.0.0 (clang-1200.0.32.29)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from shinobi.models import Dojo
+>>> Water = Dojo.objects.create(dojo_name = "Water", city = "Chicago", state = "IL", desc = "Water techniques are this dojo's strong suit.")
+>>> Water.desc
+"Water techniques are this dojo's strong suit."
+>>> exit()
