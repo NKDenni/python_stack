@@ -1,0 +1,168 @@
+(djangoPy3Env) nathan@Nathans-MacBook-Pro Books_Authors % python manage.py makemigrations
+Migrations for 'many_to_many':
+  many_to_many/migrations/0001_initial.py
+    - Create model Book
+    - Create model Author
+(djangoPy3Env) nathan@Nathans-MacBook-Pro Books_Authors % python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, many_to_many, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+(djangoPy3Env) nathan@Nathans-MacBook-Pro Books_Authors % python manage.py shell
+Python 3.9.5 (default, May  4 2021, 03:36:27) 
+[Clang 12.0.0 (clang-1200.0.32.29)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from many_to_many.models. import *
+  File "<console>", line 1
+    from many_to_many.models. import *
+                              ^
+SyntaxError: invalid syntax
+>>> from many_to_many.models. import Book, Author
+  File "<console>", line 1
+    from many_to_many.models. import Book, Author
+                              ^
+SyntaxError: invalid syntax
+>>> from many_to_many.models import *
+>>> C# = Book.objects.create(title = 'C Sharp')
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'C' is not defined
+>>> Csharp = Book.objects.create(title = 'C Sharp')
+>>> Java = Book.objects.create(title = 'Java')
+>>> Python = Book.objects.create(title = 'Python')
+>>> PHP = Book.objects.create(title = 'PHP')
+>>> Ruby = Book.objects.create(title = 'Ruby')
+>>> Jane = Author.objects.create(first_name = 'Jane', last_name = 'Austen')
+>>> Emily = Author.objects.create(first_name = 'Emily', last_name = 'Dickinson')
+>>> Fyodor = Author.objects.create(first_name = 'Fyodor', last_name = 'Dostoevsky')
+>>> Will = Author.objects.create(first_name = 'William', last_name = 'Shakespeare')
+>>> Lau = Author.objects.create(first_name = 'Lau', last_name = 'Tzu')
+>>> Csharp.save()
+>>> Java.save()
+>>> Python.save()
+>>> PHP.save()
+>>> Ruby.save()
+>>> Jane.save()
+>>> Emily.save()
+>>> Fyodor.save()
+>>> Will.save()
+>>> Lau.save()
+>>> exit()
+(djangoPy3Env) nathan@Nathans-MacBook-Pro Books_Authors % python manage.py makemigrations
+You are trying to add a non-nullable field 'notes' to author without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 2
+djangoPy3Env) nathan@Nathans-MacBook-Pro Books_Authors % python manage.py makemigrations
+Migrations for 'many_to_many':
+  many_to_many/migrations/0002_author_notes.py
+    - Add field notes to author
+(djangoPy3Env) nathan@Nathans-MacBook-Pro Books_Authors % python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, many_to_many, sessions
+Running migrations:
+  Applying many_to_many.0002_author_notes... OK
+(djangoPy3Env) nathan@Nathans-MacBook-Pro Books_Authors % python manage.py shell
+Python 3.9.5 (default, May  4 2021, 03:36:27) 
+[Clang 12.0.0 (clang-1200.0.32.29)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from many_to_many.models import *
+>>> Book.objects.all().values()
+<QuerySet [{'id': 1, 'title': 'C Sharp', 'created_at': datetime.datetime(2021, 7, 3, 0, 11, 40, 111163, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 17, 54, 236028, tzinfo=<UTC>)}, {'id': 2, 'title': 'Java', 'created_at': datetime.datetime(2021, 7, 3, 0, 12, 6, 697022, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 18, 1, 916000, tzinfo=<UTC>)}, {'id': 3, 'title': 'Python', 'created_at': datetime.datetime(2021, 7, 3, 0, 12, 23, 831652, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 18, 8, 351060, tzinfo=<UTC>)}, {'id': 4, 'title': 'PHP', 'created_at': datetime.datetime(2021, 7, 3, 0, 12, 45, 115092, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 18, 13, 831372, tzinfo=<UTC>)}, {'id': 5, 'title': 'Ruby', 'created_at': datetime.datetime(2021, 7, 3, 0, 12, 57, 750417, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 18, 22, 730210, tzinfo=<UTC>)}]>
+>>> Book.objects.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>, <Book: Book object (5)>]>
+>>> c = Book.objects.get(id=1)
+>>> c.title = 'C#'
+>>> c.save()
+>>> Book.objects.all().values()
+<QuerySet [{'id': 1, 'title': 'C#', 'created_at': datetime.datetime(2021, 7, 3, 0, 11, 40, 111163, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 2, 16, 49, 99190, tzinfo=<UTC>)}, {'id': 2, 'title': 'Java', 'created_at': datetime.datetime(2021, 7, 3, 0, 12, 6, 697022, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 18, 1, 916000, tzinfo=<UTC>)}, {'id': 3, 'title': 'Python', 'created_at': datetime.datetime(2021, 7, 3, 0, 12, 23, 831652, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 18, 8, 351060, tzinfo=<UTC>)}, {'id': 4, 'title': 'PHP', 'created_at': datetime.datetime(2021, 7, 3, 0, 12, 45, 115092, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 18, 13, 831372, tzinfo=<UTC>)}, {'id': 5, 'title': 'Ruby', 'created_at': datetime.datetime(2021, 7, 3, 0, 12, 57, 750417, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 18, 22, 730210, tzinfo=<UTC>)}]>
+>>> Author.objects.all()
+<QuerySet [<Author: Author object (1)>, <Author: Author object (2)>, <Author: Author object (3)>, <Author: Author object (4)>, <Author: Author object (5)>]>
+>>> c = Author.objects.get(id=4)
+>>> c.first_name = 'Bill'
+>>> c.save()
+>>> Jane = Author.objects.get(id=1)
+>>> Jane.first_name
+'Jane'
+>>> Csharp = Book.objects.get(id=1)
+>>> Csharp.title
+'C#'
+>>> Java = Book.objects.get(id=2)
+>>> Java.title
+'Java'
+>>> Python = Book.objects.get(id=3)
+>>> Python.title
+'Python'
+>>> PHP  = Book.objects.get(id=4)
+>>> PHP.title
+'PHP'
+>>> Ruby = Book.objects.get(id=5)
+>>> Ruby.title
+'Ruby'
+>>> Jane.books.add(Csharp, Java)
+>>> Emily = Author.objects.get(id=2)
+>>> Emily.first_name
+'Emily'
+>>> Emily.books.add(Csharp, Java, Python)
+>>> Emily.books
+<django.db.models.fields.related_descriptors.create_forward_many_to_many_manager.<locals>.ManyRelatedManager object at 0x10cc65c40>
+>>> Emily.books.values()
+<QuerySet [{'id': 1, 'title': 'C#', 'created_at': datetime.datetime(2021, 7, 3, 0, 11, 40, 111163, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 2, 16, 49, 99190, tzinfo=<UTC>)}, {'id': 2, 'title': 'Java', 'created_at': datetime.datetime(2021, 7, 3, 0, 12, 6, 697022, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 18, 1, 916000, tzinfo=<UTC>)}, {'id': 3, 'title': 'Python', 'created_at': datetime.datetime(2021, 7, 3, 0, 12, 23, 831652, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 0, 18, 8, 351060, tzinfo=<UTC>)}]>
+>>> Fy = Author.objects.get(id=3)
+>>> Fy.first_name
+'Fyodor'
+>>> Bill = Author.objects.get(id=4)
+>>> Bill.first_name
+>>> Jane.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>]>
+>>> Emily.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>]>
+>>> Bill.books.all()
+<QuerySet []>
+>>> Bill.books.add(Csharp, Java, Python, PHP)
+>>> Bill.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>]>
+>>> Fy.books.add(Csharp, Java, Python, PHP, Ruby)
+>>> Bill.save()
+>>> Fy.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>, <Book: Book object (5)>]>
+>>> Fy.save()
+>>> Python.authors.all()
+<QuerySet [<Author: Author object (2)>, <Author: Author object (4)>, <Author: Author object (3)>]>
+>>> Python.authors.all().values()
+<QuerySet [{'id': 2, 'first_name': 'Emily', 'last_name': 'Dickinson', 'notes': None, 'created_at': datetime.datetime(2021, 7, 3, 0, 15, 39, 131100, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 22, 18, 55, 985385, tzinfo=<UTC>)}, {'id': 4, 'first_name': 'Bill', 'last_name': 'Shakespeare', 'notes': None, 'created_at': datetime.datetime(2021, 7, 3, 0, 17, 9, 566692, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 22, 25, 36, 100920, tzinfo=<UTC>)}, {'id': 3, 'first_name': 'Fyodor', 'last_name': 'Dostoevsky', 'notes': None, 'created_at': datetime.datetime(2021, 7, 3, 0, 16, 17, 624574, tzinfo=<UTC>), 'updated_at': datetime.datetime(2021, 7, 3, 22, 26, 13, 303450, tzinfo=<UTC>)}]>
+>>> Python.authors.remove(Emily)
+>>> Python.authors.all()
+<QuerySet [<Author: Author object (4)>, <Author: Author object (3)>]>
+>>> Lau = Author.objects.get(id=5)
+>>> Lau.books.add(Java)
+>>> Lau.books.all()
+<QuerySet [<Book: Book object (2)>]>
+>>> Bill.books.all()
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>]>
+>>> Ruby.authors.all()
+<QuerySet [<Author: Author object (3)>]>
+>>> Fy.id
+3
+>>> Csharp.save()
+>>> Java.save()
+>>> Python.save()
+>>> PHP.save()
+>>> Ruby.save()
+>>> Jane.save()
+>>> Emily.save()
+>>> Fy.save()
+>>> Bill.save()
+>>> Lau.save()
+>>> exit()
+
+Message: I forgot Fy was the 3rd author and thought he was the 4th.
