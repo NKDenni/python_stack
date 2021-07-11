@@ -11,7 +11,7 @@
     <div class="container border">
         <form action="/submit" method="POST">
             {% csrf_token %}
-            <div class="row mb-4" align="center">
+            <div class="row mb-4 text-center">
                 <h1>The Dojo Survey</h1>
             </div>
             <div class="row d-flex justify-content-center">
@@ -50,7 +50,6 @@
                     <option value="Ruby">Ruby</option>
                 </select>
             </div>
-
             <div class="mb-3 d-flex justify-content-center align-items-center">
                 <div class="row me-4 col-sm-2">
                     <label for="exampleFormControlTextarea1" class="form-label">Short description of yourself (optional)</label>
