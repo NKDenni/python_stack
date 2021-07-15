@@ -46,10 +46,13 @@ def login(request):
     return redirect("/")
 
 def success(request):
-    context = {
-        'log_user': User.objects.get(id=request.session['log_user'])
-    }
-    return render(request, 'success.html', context)
+    if request.method == "POST":
+        context = {
+            'log_user': User.objects.get(id=request.session['log_user'])
+        }
+        return render(request, 'success.html', context)
+    else:
+        return redirect('/')
 
 def logout(request):
     request.session.clear()
