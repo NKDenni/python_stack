@@ -1,0 +1,8 @@
+<!-- Inside a new template that we'll call note_index.html -->
+<div class="notes">
+    {% for note in notes %}
+    <div class="note">
+        <p class="card-text">{{note.text}}</p>
+    </div>
+    {% endfor %}
+</div>
