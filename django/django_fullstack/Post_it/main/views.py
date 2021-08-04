@@ -18,10 +18,10 @@ def new_note(request):
         bound_form = NoteForm(request.POST)
 
         if bound_form.is_valid():
-            this_note = Note.objects.create(text=request.POST['text'])
+            new_note = Note.objects.create(text=request.POST['text'])
 
     context = {
-        'notes': Note.objects.all().order_by("-id")
+        'this_note': new_note
     }
     return render(request, 'note_index.html', context)
 

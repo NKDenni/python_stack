@@ -18,14 +18,14 @@
         <div class="row mt-5 border-bottom border-dark">
             <h1>My Notes</h1>
         </div>
-        <div class="notes row row-cols-3 row-cols-md-2 mt-3 g-4">
+        <div id="notes" class="row row-cols-3 row-cols-md-2 mt-3 g-4">
             {% for note in notes %}
                 <div class="col-sm-3">
                     <div class="card h-100 border border-dark">
                         <div class="card-header text-end">
-                            <a type="button" class="btn-close text-reset" href="{{ note.id }}/delete" aria-label="Close"></a>
+                            <a type="button" class="btn-close text-reset" href="{{ note.id }}/delete"></a>
                         </div>
-                        <div class="note card-body text-center">
+                        <div id="note" class="card-body text-center">
                             <p class="card-text">{{ note.text }}</p>
                         </div>
                     </div>

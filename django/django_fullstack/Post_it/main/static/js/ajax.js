@@ -8,7 +8,7 @@ $(document).ready(function () {
             method: "POST", /* Which HTTP verb? */
             data: $(this).serialize(), /* Any data to send along? */
             success: function (serverResponse) {
-                $('.note').html(serverResponse)
+                $('#notes').prepend(serverResponse)
                 console.log("Received this from server: ", serverResponse)/* What code should we run when the server responds? */
             }
         })

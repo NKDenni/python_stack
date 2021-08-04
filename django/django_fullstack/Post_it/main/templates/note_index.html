@@ -1,8 +1,11 @@
 <!-- Inside a new template that we'll call note_index.html -->
-<div class="notes">
-    {% for note in notes %}
-    <div class="note">
-        <p class="card-text">{{note.text}}</p>
-    </div>
-    {% endfor %}
-</div>
+        <div class="col-sm-3" class="row row-cols-3 row-cols-md-2 mt-3 g-4">
+            <div class="card h-100 border border-dark">
+                <div class="card-header text-end">
+                    <a type="button" class="btn-close text-reset" href="{{ this_note.id }}/delete"></a>
+                </div>
+                <div id="note" class="card-body text-center">
+                    <p class="card-text">{{ this_note.text }}</p>
+                </div>
+            </div>
+        </div>
